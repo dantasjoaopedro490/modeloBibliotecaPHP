@@ -1,14 +1,23 @@
 <?php
-$servidor = "localhost";
-$banco = "cadastro_livros";
+$host = "localhost";
+$banco = "biblioteca";
 $usuario = "root";
 $senha = "";
 
-try{
-    $pdo = new PDO("mysql:host=$servidor;dbname=$banco;charset=utf8mb4", $usuario, $senha);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-} catch{
-    die("Erro de conexão: ". $e->getMessage());
+try {
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$banco;charset=utf8mb4",
+        $usuario,
+        $senha
+    );
+
+    $pdo->setAttribute(
+        PDO::ATTR_ERRMODE,
+        PDO::ERRMODE_EXCEPTION
+    );
+
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    exit("Erro ao conectar ao banco de dados.");
 }
 ?>
